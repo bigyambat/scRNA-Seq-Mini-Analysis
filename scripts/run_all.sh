@@ -5,10 +5,14 @@ ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
 
 echo "[run_all] Starting end-to-end pipeline"
 
+# 0) Setup CellRanger environment
+echo "[run_all] Setting up CellRanger environment..."
+bash "$ROOT_DIR/scripts/setup_cellranger.sh"
+
 # 1) Data (FASTQs + reference)
 bash "$ROOT_DIR/scripts/runtime.sh" "data" bash "$ROOT_DIR/scripts/download_data.sh"
 
-# 2) Cell Ranger (Docker fallback if needed)
+# 2) Cell Ranger (with flexible HPC/local setup)
 bash "$ROOT_DIR/scripts/runtime.sh" "cellranger" bash "$ROOT_DIR/scripts/run_cellranger.sh"
 
 # 3) Seurat (QC, clustering, annotation, trajectory)

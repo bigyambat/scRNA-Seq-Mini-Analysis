@@ -9,45 +9,23 @@ OUT_DIR="$ROOT_DIR/results/cellranger"
 
 mkdir -p "$OUT_DIR"
 
-# Prefer local cellranger if available; else fallback to Docker
-USE_DOCKER=0
+# Source the setup script to configure CellRanger
+echo "[cellranger] Setting up CellRanger environment..."
+source "$ROOT_DIR/scripts/setup_cellranger.sh"
+
+# Check if CellRanger is available
 if ! command -v cellranger >/dev/null 2>&1; then
-  if command -v docker >/dev/null 2>&1; then
-    USE_DOCKER=1
-    echo "[cellranger] Using Docker fallback"
-  else
-    echo "Cell Ranger not found and Docker unavailable. Please install one of them."
+    echo "✗ CellRanger not available after setup"
+    echo "Please run: $ROOT_DIR/scripts/setup_cellranger.sh"
     exit 1
-  fi
 fi
 
-sample=$(python - <<'PY'
-import sys, yaml
-cfg=yaml.safe_load(open(sys.argv[1]))
-print(cfg['datasets']['tenx']['sample_name'])
-PY
-"$CONFIG")
+echo "[cellranger] Using CellRanger: $(which cellranger)"
 
-chem=$(python - <<'PY'
-import sys, yaml
-cfg=yaml.safe_load(open(sys.argv[1]))
-print(cfg['cellranger']['chemistry'])
-PY
-"$CONFIG")
-
-cores=$(python - <<'PY'
-import sys, yaml
-cfg=yaml.safe_load(open(sys.argv[1]))
-print(cfg['cellranger']['localcores'])
-PY
-"$CONFIG")
-
-mem=$(python - <<'PY'
-import sys, yaml
-cfg=yaml.safe_load(open(sys.argv[1]))
-print(cfg['cellranger']['localmem'])
-PY
-"$CONFIG")
+sample=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "datasets.tenx.sample_name")
+chem=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.chemistry")
+cores=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.localcores")
+mem=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.localmem")
 
 FASTQ_DIR="$DATA_DIR/fastqs_ds"
 [[ -d "$FASTQ_DIR" ]] || FASTQ_DIR="$DATA_DIR/fastqs"
@@ -55,35 +33,23 @@ FASTQ_DIR="$DATA_DIR/fastqs_ds"
 echo "[cellranger] Running count for $sample"
 cd "$OUT_DIR"
 
-if [[ "$USE_DOCKER" == "1" ]]; then
-  # Build image if missing
-  IMG="cellranger:9.0.1"
-  if ! docker image inspect "$IMG" >/dev/null 2>&1; then
-    docker build -f "$ROOT_DIR/Dockerfile.cellranger" \
-      --build-arg CR_URL="https://cf.10xgenomics.com/releases/cell-exp/cellranger-9.0.1.tar.gz" \
-      -t "$IMG" "$ROOT_DIR"
-  fi
-  docker run --rm -u $(id -u):$(id -g) \
-    -v "$ROOT_DIR":"/work" -w "/work" \
-    -v "$REF_DIR":"$REF_DIR" -v "$FASTQ_DIR":"$FASTQ_DIR" \
-    "$IMG" -lc "cellranger count \
-      --id='${sample}' \
-      --transcriptome='$REF_DIR' \
-      --fastqs='$FASTQ_DIR' \
-      --sample='$sample' \
-      --chemistry='$chem' \
-      --localcores='$cores' \
-      --localmem='$mem'"
-else
-  cellranger count \
-    --id="${sample}" \
-    --transcriptome="$REF_DIR" \
-    --fastqs="$FASTQ_DIR" \
-    --sample="$sample" \
-    --chemistry="$chem" \
-    --localcores="$cores" \
-    --localmem="$mem"
-fi
+# Run CellRanger count
+echo "[cellranger] Running count for $sample"
+echo "  Sample: $sample"
+echo "  Chemistry: $chem"
+echo "  Cores: $cores"
+echo "  Memory: $mem GB"
+echo "  Reference: $REF_DIR"
+echo "  FASTQ directory: $FASTQ_DIR"
+
+cellranger count \
+  --id="${sample}" \
+  --transcriptome="$REF_DIR" \
+  --fastqs="$FASTQ_DIR" \
+  --sample="$sample" \
+  --chemistry="$chem" \
+  --localcores="$cores" \
+  --localmem="$mem"
 
 echo "[cellranger] Done"
 

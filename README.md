@@ -19,33 +19,54 @@ This single tool runs all tasks end-to-end:
 ### Requirements
 
 - Linux or macOS with Conda/Mamba, GNU Make, and 40–60 GB free disk (temporary Cell Ranger/ref files)
-- Cell Ranger binary (see below). We do not redistribute it. Place it on PATH.
+- Cell Ranger 7.2.0 (see setup instructions below)
 
-### Environment
+### Environment Setup
 
-Create the pinned environment with mamba/conda:
+#### 1. Create Conda Environment
 
 ```bash
 mamba env create -f environment.yml
 conda activate scrna-mini
 ```
 
-Additionally, install Cell Ranger (pinned):
+#### 2. CellRanger Setup
 
-1) Download Cell Ranger 7.2.0 from 10x Genomics and extract.
-2) Add `cellranger-7.2.0` to your PATH, e.g.:
+The pipeline supports both HPC and local environments:
 
+**For HPC Users:**
 ```bash
-export PATH=/opt/cellranger-7.2.0:$PATH
+# Switch to HPC mode
+./scripts/switch_environment.sh hpc
+
+# Submit job
+./scripts/submit_cellranger_hpc.sh
 ```
 
-The pipeline will verify availability with `cellranger --version`.
+**For Local Users:**
+```bash
+# Install CellRanger 7.2.0
+wget https://cf.10xgenomics.com/releases/cell-exp/cellranger-7.2.0.tar.gz
+tar -xzf cellranger-7.2.0.tar.gz
+export PATH=$PATH:$(pwd)/cellranger-7.2.0/bin
+
+# Switch to local mode
+./scripts/switch_environment.sh local
+
+# Run analysis
+./scripts/run_cellranger.sh
+```
+
+**Automatic Detection:**
+The pipeline automatically detects your environment and configures CellRanger accordingly.
+
+See `SETUP_CELLRANGER.md` for detailed setup instructions.
 
 ### Data provenance
 
 Exact dataset URLs are defined in `config/config.yaml` and mirrored in `data/data_links.txt`.
 
-- Core 10x dataset: a tiny PBMC 1k/3k-like set from public archives (FASTQs ≤2 GB after optional downsampling)
+- Core 10x dataset: 10X PBMC 10k v3 dataset from public archives (full dataset for comprehensive analysis)
 - Isoform dataset (preferred): a very small Smart‑seq2/long‑read single‑cell set (20–100 cells)
 - Fallback (if only 10x): limited splicing/isoform exploration acknowledging 3′ bias
 

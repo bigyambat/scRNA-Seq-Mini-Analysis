@@ -33,7 +33,7 @@ cellranger:
     job_time: "4:00:00"
   # Local installation settings
   local:
-    enabled: true  # Set to true when using local installation
+    enabled: false  # Set to true when using local installation
     path: ""  # Leave empty to use system PATH, or specify full path to cellranger
 
 qc:
