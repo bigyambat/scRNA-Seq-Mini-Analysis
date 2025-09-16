@@ -62,6 +62,28 @@ The pipeline automatically detects your environment and configures CellRanger ac
 
 See `SETUP_CELLRANGER.md` for detailed setup instructions.
 
+## Testing the Pipeline
+
+Before running the full analysis, test the pipeline components:
+
+```bash
+# Quick test of all components
+echo "=== Testing Configuration Parser ===" && \
+python3 scripts/parse_config.py config/config.yaml cellranger.version && \
+echo "=== Testing Environment Detection ===" && \
+./scripts/switch_environment.sh && \
+echo "=== Testing CellRanger Setup ===" && \
+./scripts/setup_cellranger.sh && \
+echo "=== All Tests Complete ==="
+```
+
+**Expected Results:**
+- Configuration parser: `7.2.0`
+- Environment detection: Shows current HPC/Local mode
+- CellRanger setup: Detects environment and shows appropriate message
+
+For detailed testing instructions, see `TESTING_GUIDE.md`.
+
 ### Data provenance
 
 Exact dataset URLs are defined in `config/config.yaml` and mirrored in `data/data_links.txt`.
