@@ -1,0 +1,44 @@
+datasets:
+  tenx:
+    id: pbmc_tiny
+    urls:
+      - https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_v3/pbmc_1k_v3_fastqs.tar
+    downsample_fraction: 0.20  # keep small; adjust if needed
+    sample_name: pbmc_1k_v3
+  isoform:
+    enabled: false
+    # Option A: small Smart-seq2/long-read single-cell dataset (example placeholder; update as needed)
+    urls:
+      - https://example.org/smartseq2_tiny.fastq.gz
+    read_type: smartseq2
+    downsample_fraction: 0.50
+
+references:
+  transcriptome:
+    species: human
+    tenx_ref: GRCh38-2020-A  # specify local path if already installed
+    url: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+
+cellranger:
+  chemistry: auto
+  localcores: 6
+  localmem: 32
+
+qc:
+  min_features: 200
+  max_mt_percent: 15
+  n_hvgs: 2000
+
+trajectory:
+  method: seurat_slingshot_like  # simple within-Seurat approach (no heavy deps)
+
+flair:
+  genome_fa: refs/GRCh38.primary_assembly.genome.fa
+  gtf: refs/gencode.v41.basic.annotation.gtf
+  threads: 6
+  loci: ["LMNA", "PTPRC"]
+
+report:
+  output: report/report.html
+
+

@@ -1,0 +1,16 @@
+### STAR   --runMode genomeGenerate   --runThreadN 1   --genomeDir /home/user/git/cellranger-arc-testrun-files/6.2.0/star   --genomeFastaFiles /home/user/git/cellranger-arc-testrun-files/6.2.0/fasta/genome.fa      --genomeSAindexNbases 10   --genomeChrBinNbits 18   --genomeSAsparseD 3   --limitGenomeGenerateRAM 3221225472   --sjdbGTFfile /home/user/git/cellranger-arc-testrun-files/6.2.0/genes/genes.gtf
+### GstrandBit 32
+versionGenome	2.7.1a
+genomeFastaFiles	/home/user/git/cellranger-arc-testrun-files/6.2.0/fasta/genome.fa 
+genomeSAindexNbases	10
+genomeChrBinNbits	18
+genomeSAsparseD	3
+sjdbOverhang	100
+sjdbFileChrStartEnd	- 
+sjdbGTFfile	/home/user/git/cellranger-arc-testrun-files/6.2.0/genes/genes.gtf
+sjdbGTFchrPrefix	-
+sjdbGTFfeatureExon	exon
+sjdbGTFtagExonParentTranscript	transcript_id
+sjdbGTFtagExonParentGene	gene_id
+sjdbInsertSave	Basic
+genomeFileSizes	12784274 36332508

@@ -1,0 +1,89 @@
+@include "_cr_vdj_stages.mro"
+
+pipeline CLONOTYPE_ASSIGNER(
+    in  path         vdj_reference_path,
+    in  json         contig_annotations,
+    in  string       receptor,
+    in  FilterSwitch filter_switch,
+    in  string       sample_id,
+    out json         contig_annotations_json,
+    out csv          clonotypes_csv,
+    out fasta        consensus_fasta,
+    out fasta.fai    consensus_fasta_fai,
+    out fasta        concat_ref_fasta,
+    out fasta.fai    concat_ref_fasta_fai,
+    out bam          concat_ref_bam,
+    out bam.bai      concat_ref_bam_bai,
+    out bam          consensus_bam,
+    out bam.bai      consensus_bam_bai,
+    out csv          consensus_annotations_csv,
+    out json         summary,
+    out tsv          airr_rearrangement,
+    out pb           enclone_output,
+    out json         enclone_barcode_fate,
+    out bool         disable_vloupe,
+    out fa           donor_ref_fa,
+)
+{
+    call RUN_ENCLONE(
+        vdj_reference_path = self.vdj_reference_path,
+        contig_annotations = self.contig_annotations,
+        receptor           = self.receptor,
+        filter_switch      = self.filter_switch,
+    )
+
+    call FILL_CLONOTYPE_INFO(
+        sample_id          = self.sample_id,
+        contig_annotations = self.contig_annotations,
+        enclone_output     = RUN_ENCLONE.enclone_output,
+    )
+
+    call WRITE_CONCAT_REF_OUTS(
+        sample_id                   = self.sample_id,
+        all_contig_annotations_json = FILL_CLONOTYPE_INFO.all_contig_annotations_json,
+        enclone_output              = RUN_ENCLONE.enclone_output,
+    )
+
+    call WRITE_CONSENSUS_BAM(
+        sample_id                   = self.sample_id,
+        all_contig_annotations_json = FILL_CLONOTYPE_INFO.all_contig_annotations_json,
+        enclone_output              = RUN_ENCLONE.enclone_output,
+    )
+
+    call WRITE_CONSENSUS_TXT(
+        sample_id      = self.sample_id,
+        enclone_output = RUN_ENCLONE.enclone_output,
+    )
+
+    call CREATE_AIRR_TSV(
+        contig_annotations = FILL_CLONOTYPE_INFO.all_contig_annotations_json,
+        concat_ref_fasta   = WRITE_CONCAT_REF_OUTS.concat_ref_fasta,
+        gem_well_map       = null,
+    )
+
+    call WRITE_CLONOTYPE_OUTS(
+        sample_id      = self.sample_id,
+        enclone_output = RUN_ENCLONE.enclone_output,
+        receptor       = self.receptor,
+    )
+
+    return (
+        contig_annotations_json   = FILL_CLONOTYPE_INFO.all_contig_annotations_json,
+        summary                   = RUN_ENCLONE.summary,
+        clonotypes_csv            = WRITE_CLONOTYPE_OUTS.clonotypes_csv,
+        consensus_annotations_csv = WRITE_CONSENSUS_TXT.consensus_annotations_csv,
+        consensus_fasta           = WRITE_CONSENSUS_TXT.consensus_fasta,
+        consensus_fasta_fai       = WRITE_CONSENSUS_TXT.consensus_fasta_fai,
+        concat_ref_fasta          = WRITE_CONCAT_REF_OUTS.concat_ref_fasta,
+        concat_ref_fasta_fai      = WRITE_CONCAT_REF_OUTS.concat_ref_fasta_fai,
+        consensus_bam             = WRITE_CONSENSUS_BAM.consensus_bam,
+        consensus_bam_bai         = WRITE_CONSENSUS_BAM.consensus_bam_bai,
+        concat_ref_bam            = WRITE_CONCAT_REF_OUTS.concat_ref_bam,
+        concat_ref_bam_bai        = WRITE_CONCAT_REF_OUTS.concat_ref_bam_bai,
+        airr_rearrangement        = CREATE_AIRR_TSV.airr_annotations,
+        enclone_output            = RUN_ENCLONE.enclone_output,
+        enclone_barcode_fate      = RUN_ENCLONE.barcode_fate,
+        disable_vloupe            = RUN_ENCLONE.disable_vloupe,
+        donor_ref_fa              = RUN_ENCLONE.donor_ref_fa,
+    )
+}

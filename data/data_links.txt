@@ -1,0 +1,5 @@
+10x tiny PBMC (example): https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_v3/pbmc_1k_v3_fastqs.tar
+10x GRCh38 reference: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+Isoform tiny dataset (replace with Smart-seq2/long-reads URL ≤2 GB): https://example.org/smartseq2_tiny.fastq.gz
+
+

@@ -1,0 +1,10 @@
+prefix=external/anaconda
+exec_prefix=${prefix}
+includedir=external/anaconda/include
+libdir=external/anaconda/lib
+
+Name: libdeflate
+Description: Fast implementation of DEFLATE, zlib, and gzip
+Version: 1.14
+Libs: -L${libdir} -ldeflate
+Cflags: -I${includedir}

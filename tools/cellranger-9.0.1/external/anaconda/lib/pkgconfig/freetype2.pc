@@ -1,0 +1,14 @@
+prefix=external/anaconda
+exec_prefix=external/anaconda
+libdir=external/anaconda/lib
+includedir=external/anaconda/include
+
+Name: FreeType 2
+URL: https://freetype.org
+Description: A free, high-quality, and portable font engine.
+Version: 24.3.18
+Requires: 
+Requires.private: zlib, libpng
+Libs: -Lexternal/anaconda/lib -lfreetype
+Libs.private: 
+Cflags: -I${includedir}/freetype2

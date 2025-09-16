@@ -1,0 +1,98 @@
+---
+title: "scRNA-Seq Mini Analysis"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(Seurat)
+library(tidyverse)
+root <- normalizePath(file.path(dirname(".")))
+cfg <- yaml::read_yaml(file.path(root, "config", "config.yaml"))
+sample <- cfg$datasets$tenx$sample_name
+seurat_dir <- file.path(root, "results", "seurat")
+cr_dir <- file.path(root, "results", "cellranger", sample, "outs")
+```
+
+## Methods
+
+Tools and versions (pinned):
+- Cell Ranger 7.2.0 (10x Genomics)
+- Seurat 5.0.3 (R 4.3.3)
+- FLAIR 2.0.0, minimap2 2.28, seqtk 1.4, samtools 1.20
+
+Commands and key params are in the `scripts/` and `config/config.yaml`.
+
+## QC & Clustering
+
+```{r}
+obj <- readRDS(file.path(seurat_dir, paste0(sample, "_seurat.rds")))
+```
+
+Thresholds:
+- min genes per cell: `r cfg$qc$min_features`
+- max MT%: `r cfg$qc$max_mt_percent`%
+
+```{r, out.width='100%'}
+knitr::include_graphics(file.path(seurat_dir, "qc_violin.png"))
+```
+
+```{r, out.width='60%'}
+knitr::include_graphics(file.path(seurat_dir, "umap_clusters.png"))
+```
+
+## Annotation
+
+```{r, out.width='60%'}
+knitr::include_graphics(file.path(seurat_dir, "umap_labels.png"))
+```
+
+Marker features:
+
+```{r, out.width='100%'}
+knitr::include_graphics(file.path(seurat_dir, "marker_features.png"))
+```
+
+## Trajectory (simple pseudotime)
+
+Pseudotime derived from PC1 ordering as a lightweight proxy.
+
+```{r, out.width='60%'}
+knitr::include_graphics(file.path(seurat_dir, "pseudotime.png"))
+```
+
+## Isoform/Splicing (FLAIR)
+
+If a small full-length dataset was provided, FLAIR results are summarized below; otherwise, this section notes the 3′ bias limitation of 10x.
+
+```{r}
+flair_dir <- file.path(root, "results", "flair")
+tab <- file.path(flair_dir, "flair.isoforms.fa")
+has_flair <- file.exists(tab)
+```
+
+```{r, results='asis'}
+if (has_flair) {
+  cat("Detected isoforms FASTA; showing first few isoforms.\n")
+  lines <- readLines(tab, n=20)
+  cat("<pre>\n", paste(lines, collapse='\n'), "\n</pre>")
+} else {
+  cat("FLAIR results not present. Using 10x-only fallback; isoform resolution limited due to 3′ bias.\n")
+}
+```
+
+## Runtime
+
+Wall-clock and peak RAM per step recorded in `results/runtime.log`.
+
+## Limitations & Next steps
+
+- Minimal trajectory; could integrate Slingshot/Monocle with extra deps
+- Isoform analysis best with full-length or long-reads; here kept tiny for speed
+- With more compute, increase cells/reads and include doublet detection
+
+

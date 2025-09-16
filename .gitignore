@@ -1,0 +1,21 @@
+# data and heavy outputs
+data/**
+!data/data_links.txt
+refs/**
+results/**
+report/**
+!report/.gitkeep
+
+# envs and caches
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.ipynb_checkpoints
+*.tmp
+*.log
+
+# system
+.DS_Store
+
+
