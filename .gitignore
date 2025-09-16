@@ -1,21 +1,27 @@
-# data and heavy outputs
-data/**
-!data/data_links.txt
-refs/**
-results/**
-report/**
-!report/.gitkeep
+# Large binary tools and dependencies
+tools/
+*.so*
+*.so
 
-# envs and caches
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.ipynb_checkpoints
+# Data files
+data/
+results/
+refs/
+
+# Temporary files
 *.tmp
-*.log
+*.temp
+*~
 
-# system
+# OS files
 .DS_Store
+Thumbs.db
 
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 
+# Log files
+*.log
