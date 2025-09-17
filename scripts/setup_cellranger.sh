@@ -76,10 +76,10 @@ elif [[ "$LOCAL_ENABLED" == "True" ]]; then
         echo "1. Install CellRanger and add it to your PATH, or"
         echo "2. Set the full path in config.yaml under cellranger.local.path"
         echo ""
-        echo "To install CellRanger 7.2.0:"
+        echo "To install CellRanger 9.0.1:"
         echo "1. Download from: https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest"
         echo "2. Extract and add to PATH:"
-        echo "   export PATH=\$PATH:/path/to/cellranger-7.2.0/bin"
+        echo "   export PATH=\$PATH:/path/to/cellranger-9.0.1/bin"
         exit 1
     fi
     
