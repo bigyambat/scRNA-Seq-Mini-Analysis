@@ -3,7 +3,7 @@ datasets:
     id: pbmc_heparin_sepmate
     # Option 1: Use remote dataset
     urls:
-      - https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_10k_v3/pbmc_10k_v3_fastqs.tar
+      - https://cf.10xgenomics.com/samples/cell-exp/6.1.0/3p_Heparin_SepMate/3p_Heparin_SepMate_fastqs.tar
     # Option 2: Use local FASTQ files (uncomment and set path)
     # local_fastq_dir: "/path/to/your/fastqs"
     downsample_fraction: 1.0  # Downsample to keep FASTQs ≤2GB (use 0.2 for tiny dataset)
