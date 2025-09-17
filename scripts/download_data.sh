@@ -51,13 +51,21 @@ fi
 echo "[data] Optional downsampling (seqtk) to fraction $tenx_frac"
 if [[ ! -d fastqs_ds ]]; then
   mkdir -p fastqs_ds
-  for fq in fastqs/*.fastq.gz fastqs/*_R1_*.gz fastqs/*_R2_*.gz; do
-    [[ -e "$fq" ]] || continue
-    base=$(basename "$fq")
-    if [[ ! -f fastqs_ds/$base ]]; then
-      zcat "$fq" | seqtk sample -s100 - "$tenx_frac" | gzip -c > fastqs_ds/$base
-    fi
-  done
+    if [[ "$tenx_frac" == "1.0" ]]; then
+      echo "[data] No downsampling needed (fraction=1.0), copying original files"
+      cp fastqs/*.fastq.gz fastqs_ds/ 2>/dev/null || true
+      cp fastqs/*_R1_*.gz fastqs_ds/ 2>/dev/null || true
+      cp fastqs/*_R2_*.gz fastqs_ds/ 2>/dev/null || true
+    else
+      echo "[data] Downsampling to fraction $tenx_frac"
+      for fq in fastqs/*.fastq.gz fastqs/*_R1_*.gz fastqs/*_R2_*.gz; do
+        [[ -e "$fq" ]] || continue
+        base=$(basename "$fq")
+        if [[ ! -f fastqs_ds/$base ]]; then
+          zcat "$fq" | seqtk sample -s100 - "$tenx_frac" | gzip -c > fastqs_ds/$base
+        fi
+    done
+  fi
 fi
 
 echo "[data] Downloading 10x reference (may be large)"

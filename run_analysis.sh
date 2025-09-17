@@ -25,7 +25,7 @@ echo "Testing pipeline components..."
 echo "=== Testing Configuration Parser ===" && \
 python3 scripts/parse_config.py config/config.yaml cellranger.version && \
 echo "=== Testing Environment Detection ===" && \
-./scripts/switch_environment.sh && \
+./scripts/switch_environment.sh hpc && \
 echo "=== Testing CellRanger Setup ===" && \
 ./scripts/setup_cellranger.sh && \
 echo "All tests passed!"
@@ -42,12 +42,12 @@ echo "   - Generate comprehensive HTML report"
 echo ""
 
 # Ask for confirmation
-read -p "Continue? (y/N): " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "Analysis cancelled"
-    exit 0
-fi
+#read -p "Continue? (y/N): " -n 1 -r
+#echo
+#if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+#    echo "Analysis cancelled"
+#    exit 0
+#fi
 
 # Run the complete pipeline
 echo "Running analysis pipeline..."

@@ -1,33 +1,44 @@
 datasets:
   tenx:
-    id: pbmc_10k
+    id: pbmc_heparin_sepmate
+    # Option 1: Use remote dataset
     urls:
-      - https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_10k_v3/pbmc_10k_v3_fastqs.tar
-    downsample_fraction: 1.0  # Use full dataset for PBMC analysis
-    sample_name: pbmc_10k_v3
+      - https://cf.10xgenomics.com/samples/cell-exp/6.1.0/3p_Heparin_SepMate/3p_Heparin_SepMate_fastqs.tar
+    # Option 2: Use local FASTQ files (uncomment and set path)
+    # local_fastq_dir: "/path/to/your/fastqs"
+    downsample_fraction: 1.0  # Downsample to keep FASTQs small (use 0.2 for tiny dataset)
+    sample_name: 3p_Heparin_SepMate
+    # Dataset: PBMCs from Heparin-Treated Blood Collection Tubes Isolated via SepMate-Ficoll Gradient
+    # Source: https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard
+    # Cells detected: 3,663
+    # Median genes per cell: 1,886
+    # Median UMIs per cell: 6,685
   isoform:
-    enabled: false
-    # Option A: small Smart-seq2/long-read single-cell dataset (example placeholder; update as needed)
-    urls:
-      - https://example.org/smartseq2_tiny.fastq.gz
-    read_type: smartseq2
-    downsample_fraction: 0.50
+    enabled: true  # Option B: Limited splicing/isoform exploration with 10x data
+    mode: "10x_fallback"  # Use 10x data for limited isoform analysis
+    # Option A (preferred): Use full-length dataset (uncomment to enable)
+    # mode: "full_length"
+    # urls:
+    #   - https://example.org/smartseq2_tiny.fastq.gz
+    # read_type: smartseq2
+    # downsample_fraction: 0.50
 
 references:
   transcriptome:
     species: human
-    tenx_ref: GRCh38-2020-A  # specify local path if already installed
-    url: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+    tenx_ref: GRCh38-2024-A  # specify local path if already installed
+    url: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz
 
 cellranger:
-  version: "7.2.0"
+  version: "9.0.1"
   chemistry: auto
   localcores: 6
   localmem: 32
+  create_bam: false
   # HPC settings
   hpc:
-    enabled: false  # Set to true when running on HPC
-    module_name: "cellranger/7.2.0"  # Module to load on HPC
+    enabled: true  # Set to true when running on HPC
+    module_name: cellranger/9.0.1  # Module to load on HPC
     job_memory: "32G"
     job_cpus: 6
     job_time: "4:00:00"
@@ -36,19 +47,39 @@ cellranger:
     enabled: false  # Set to true when using local installation
     path: ""  # Leave empty to use system PATH, or specify full path to cellranger
 
+# Output directory settings
+output_dirs:
+  data: "data"           # Raw data storage
+  results: "results"     # Analysis results
+  report: "report"       # HTML reports
+  refs: "refs"          # Reference genomes
+
+# Quality control filtering
 qc:
-  min_features: 200
-  max_mt_percent: 15
-  n_hvgs: 2000
+  min_features: 200      # Minimum genes per cell
+  max_mt_percent: 15     # Maximum mitochondrial gene percentage
+  n_hvgs: 2000          # Number of highly variable genes
+  min_cells: 3          # Minimum cells expressing a gene
+  max_genes: 5000       # Maximum genes per cell (remove doublets)
+  min_umis: 500         # Minimum UMIs per cell
+  max_umis: 50000       # Maximum UMIs per cell (remove doublets)
 
 trajectory:
   method: seurat_slingshot_like  # simple within-Seurat approach (no heavy deps)
 
 flair:
+  # Option B: Limited isoform analysis with 10x data (acknowledging 3' bias)
+  mode: "10x_fallback"  # Use 10x data for limited isoform exploration
   genome_fa: refs/GRCh38.primary_assembly.genome.fa
   gtf: refs/gencode.v41.basic.annotation.gtf
   threads: 6
-  loci: ["LMNA", "PTPRC"]
+  # Focus on genes with known splicing patterns for 3' bias analysis
+  loci: ["LMNA", "PTPRC", "CD3D", "CD19", "MS4A1", "CD14"]
+  # 10x-specific limitations
+  limitations:
+    note: "3' bias limits full transcript analysis"
+    approach: "junction usage and transcript-end differences"
+    genes: "Focus on highly expressed genes with known isoforms"
 
 report:
   output: report/report.html

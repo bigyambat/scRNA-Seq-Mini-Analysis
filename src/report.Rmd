@@ -11,17 +11,33 @@ output:
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(Seurat)
 library(tidyverse)
-root <- normalizePath(file.path(dirname(".")))
-cfg <- yaml::read_yaml(file.path(root, "config", "config.yaml"))
+
+# Get the correct root directory (go up one level from src/)
+root <- normalizePath(file.path(dirname("."), ".."))
+cat("Report root directory:", root, "\n")
+
+# Try to read config with error handling
+cfg <- tryCatch({
+  yaml::read_yaml(file.path(root, "config", "config.yaml"))
+}, error = function(e) {
+  cat("Error reading config:", e$message, "\n")
+  # Fallback values
+  list(datasets = list(tenx = list(sample_name = "3p_Heparin_SepMate")))
+})
+
 sample <- cfg$datasets$tenx$sample_name
 seurat_dir <- file.path(root, "results", "seurat")
 cr_dir <- file.path(root, "results", "cellranger", sample, "outs")
+
+cat("Sample:", sample, "\n")
+cat("Seurat dir:", seurat_dir, "\n")
+cat("CellRanger dir:", cr_dir, "\n")
 ```
 
 ## Methods
 
 Tools and versions (pinned):
-- Cell Ranger 7.2.0 (10x Genomics)
+- Cell Ranger 9.0.1 (10x Genomics)
 - Seurat 5.0.3 (R 4.3.3)
 - FLAIR 2.0.0, minimap2 2.28, seqtk 1.4, samtools 1.20
 
@@ -94,5 +110,6 @@ Wall-clock and peak RAM per step recorded in `results/runtime.log`.
 - Minimal trajectory; could integrate Slingshot/Monocle with extra deps
 - Isoform analysis best with full-length or long-reads; here kept tiny for speed
 - With more compute, increase cells/reads and include doublet detection
+
 
 

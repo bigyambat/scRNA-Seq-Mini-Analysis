@@ -1,0 +1,373 @@
+==========================================
+SLURM_JOB_ID = 2393972
+SLURM_JOB_NODELIST = b15-12
+TMPDIR = /tmp/SLURM_2393972
+==========================================
+Switching to HPC mode...
+HPC mode enabled
+Local mode disabled
+
+HPC configuration:
+  Module: cellranger/9.0.1
+  Memory: 32G
+  CPUs: 6
+  Time: 4:00:00
+
+To submit job: ./scripts/submit_cellranger_hpc.sh
+Starting Complete scRNA-Seq Analysis
+Dataset: PBMCs from Heparin-Treated Blood Collection Tubes
+Source: https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard
+Expected: ~3,663 cells, 1,886 median genes/cell, 6,685 median UMIs/cell
+
+Testing pipeline components...
+=== Testing Configuration Parser ===
+9.0.1
+=== Testing Environment Detection ===
+Switching to HPC mode...
+HPC mode enabled
+Local mode disabled
+
+HPC configuration:
+  Module: cellranger/9.0.1
+  Memory: 32G
+  CPUs: 6
+  Time: 4:00:00
+
+To submit job: ./scripts/submit_cellranger_hpc.sh
+=== Testing CellRanger Setup ===
+=== CellRanger 7.2.0 Setup ===
+Version: 9.0.1
+HPC Mode: True
+Local Mode: False
+HPC environment detected (module command available)
+Setting up for HPC environment...
+Loading module: cellranger/9.0.1
+Module cellranger/9.0.1 loaded successfully
+CellRanger is available: /apps/generic/cellranger/9.0.1/bin/cellranger
+cellranger cellranger-9.0.1
+
+=== CellRanger Setup Complete ===
+Environment: HPC
+CellRanger: /apps/generic/cellranger/9.0.1/bin/cellranger
+Version: cellranger cellranger-9.0.1
+All tests passed!
+
+Starting complete analysis pipeline...
+   This will:
+   - Download 10X PBMC dataset (~5GB)
+   - Download reference genome (~10GB)
+   - Run CellRanger count analysis
+   - Perform Seurat QC, clustering, and annotation
+   - Generate comprehensive HTML report
+
+Running analysis pipeline...
+[run_all] Starting end-to-end pipeline
+[run_all] Setting up CellRanger environment...
+=== CellRanger 7.2.0 Setup ===
+Version: 9.0.1
+HPC Mode: True
+Local Mode: False
+HPC environment detected (module command available)
+Setting up for HPC environment...
+Loading module: cellranger/9.0.1
+Module cellranger/9.0.1 loaded successfully
+CellRanger is available: /apps/generic/cellranger/9.0.1/bin/cellranger
+cellranger cellranger-9.0.1
+
+=== CellRanger Setup Complete ===
+Environment: HPC
+CellRanger: /apps/generic/cellranger/9.0.1/bin/cellranger
+Version: cellranger cellranger-9.0.1
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.000s
+Warning: time command not available, running without memory tracking
+[data] Parsing config for URLs
+[data] Processing 10x fastqs
+[data] Downloading 10x fastqs from remote URL
+[data] Optional downsampling (seqtk) to fraction 1.0
+[data] Downloading 10x reference (may be large)
+[data] Isoform analysis enabled=True, mode="10x_fallback"
+[data] Data download complete
+data	seconds=0	peak_ram_mb=unknown
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.000s
+Warning: time command not available, running without memory tracking
+[cellranger] Setting up CellRanger environment...
+=== CellRanger 7.2.0 Setup ===
+Version: 9.0.1
+HPC Mode: True
+Local Mode: False
+HPC environment detected (module command available)
+Setting up for HPC environment...
+Loading module: cellranger/9.0.1
+Module cellranger/9.0.1 loaded successfully
+CellRanger is available: /apps/generic/cellranger/9.0.1/bin/cellranger
+cellranger cellranger-9.0.1
+
+=== CellRanger Setup Complete ===
+Environment: HPC
+CellRanger: /apps/generic/cellranger/9.0.1/bin/cellranger
+Version: cellranger cellranger-9.0.1
+[cellranger] Using CellRanger: /apps/generic/cellranger/9.0.1/bin/cellranger
+[cellranger] Running count for 3p_Heparin_SepMate
+[cellranger] Running count for 3p_Heparin_SepMate
+  Sample: 3p_Heparin_SepMate
+  Chemistry: auto
+  Cores: 6
+  Memory: 32 GB
+  Reference: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/refs/refdata-gex
+  FASTQ directory: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/data/tenx/fastqs_ds
+  Create BAM: false
+
+
+Martian Runtime - v4.0.13
+2025-09-17 15:21:42 [runtime] Reattaching in local mode.
+Serving UI at http://b15-12.hpc.usc.edu:35473?auth=JaBZp1otq_-rJ9la68U558dLhlDLaEm2ymKsL3ik6_k
+
+
+Outputs:
+- Run summary HTML:                         /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/web_summary.html
+- Run summary CSV:                          /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/metrics_summary.csv
+- BAM:                                      null
+- BAM BAI index:                            null
+- BAM CSI index:                            null
+- Filtered feature-barcode matrices MEX:    /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix
+- Filtered feature-barcode matrices HDF5:   /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix.h5
+- Unfiltered feature-barcode matrices MEX:  /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/raw_feature_bc_matrix
+- Unfiltered feature-barcode matrices HDF5: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/raw_feature_bc_matrix.h5
+- Secondary analysis output CSV:            /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/analysis
+- Per-molecule read information:            /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/molecule_info.h5
+- CRISPR-specific analysis:                 null
+- Antibody aggregate barcodes:              null
+- Loupe Browser file:                       /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/cloupe.cloupe
+- Feature Reference:                        null
+- Target Panel File:                        null
+- Probe Set File:                           null
+- cell_types:                               null
+- Symlink web_summary_cell_types.html:      null
+
+Waiting 6 seconds for UI to do final refresh.
+Pipestance completed successfully!
+
+2025-09-17 15:21:50 Shutting down.
+Saving pipestance info to "3p_Heparin_SepMate/3p_Heparin_SepMate.mri.tgz"
+[cellranger] Done
+cellranger	seconds=13	peak_ram_mb=unknown
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.001s
+Warning: time command not available, running without memory tracking
+[seurat] Running Seurat analysis
+Failed to query server: Transport endpoint is not connected
+Warning message:
+In system("timedatectl", intern = TRUE) :
+  running command 'timedatectl' had status 1
+[R] Sample name: 3p_Heparin_SepMate 
+[R] CellRanger output directory: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger 
+[R] CellRanger output contents:
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate
+[R] Sample directory: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate 
+[R] Sample directory exists: TRUE 
+[R] Sample directory contents:
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/3p_Heparin_SepMate.mri.tgz
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/SC_RNA_COUNTER_CS
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_cmdline
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_filelist
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_finalstate
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_invocation
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_jobmode
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_log
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_mrosource
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_perf
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_perf._truncated_
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_sitecheck
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_tags
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_timestamp
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_uuid
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_vdrkill
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/_versions
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs
+[R] Matrix directory: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix 
+[R] Matrix directory exists: TRUE 
+[R] Loading matrix from: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix 
+[R] Matrix directory contents:
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix/barcodes.tsv.gz
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix/features.tsv.gz
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/results/cellranger/3p_Heparin_SepMate/outs/filtered_feature_bc_matrix/matrix.mtx.gz
+[R] Checking matrix files:
+  Matrix file exists: TRUE 
+  Features file exists: TRUE 
+  Barcodes file exists: TRUE 
+[R] Attempting to read matrix with Read10X...
+[R] Read10X successful
+[R] Matrix dimensions: 38606 3776 
+[R] Matrix class: dgCMatrix 
+[R] Matrix rownames length: 38606 
+[R] First few rownames: DDX11L2 MIR1302-2HG FAM138A 
+[R] Seurat object created successfully
+Warning: Default search for "data" layer in "RNA" assay yielded no results; utilizing "counts" layer instead.
+Normalizing layer: counts
+Performing log-normalization
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Finding variable features for layer counts
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Centering and scaling data matrix
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+PC_ 1 
+Positive:  LYZ, FCN1, IFI30, S100A9, VCAN, CLEC7A, CTSS, MAFB, LRMDA, PLXDC2 
+	   SPI1, PID1, CYBB, EMILIN2, MPEG1, DUSP6, RBM47, S100A8, TYROBP, FGL2 
+	   GRN, SLC8A1, CD300E, GAS7, SERPINA1, ATP2B1, SYK, PSAP, SLC11A1, JARID2 
+Negative:  CD247, BACH2, PDE3B, RORA, ANK3, INPP4B, ABLIM1, BCL2, LEF1, NELL2 
+	   THEMIS, PPP1R16B, SYTL3, CARD11, TRBC1, KCNQ5, RASGRF2, ENSG00000290067, CTSW, ZNF331 
+	   LINC01934, DUSP16, ZC3H12B, PCAT1, FAAH2, YES1, TAFA1, LNCRNA-IUR, GLCCI1, AK5 
+PC_ 2 
+Positive:  SRGN, CCL5, ACTB, H2AC6, CAVIN2, NRGN, TUBB1, GP1BB, CD247, PF4 
+	   PPBP, TUBA4A, GNG11, RGS18, GP9, NCOA4, ACRBP, S100A4, CLU, SPARC 
+	   ITGB3, F13A1, PRKAR2B, CMTM5, PF4V1, TSC22D1, TMEM40, CTSW, TREML1, PTCRA 
+Negative:  CD79A, LINC00926, COBLL1, BANK1, MS4A1, PAX5, PLEKHG1, IGHM, EBF1, FCRL1 
+	   COL19A1, ADAM28, AFF3, NIBAN3, HLA-DQA1, BLK, ADAM7-AS1, IGHD, OSBPL10, TNFRSF13C 
+	   ENSG00000251309, HLA-DQB1, KHDRBS2, AP1S3, CCSER1, ARHGAP24, RALGPS2, GNG7, WDFY4, PALM2AKAP2 
+PC_ 3 
+Positive:  CD247, SYTL3, RORA, NKG7, PPP1R16B, GZMA, S100A4, NCALD, PDE3B, CST7 
+	   HOPX, S100A6, TGFBR3, MYBL1, SAMD3, YES1, DUSP2, CRIP1, TFDP2, SYTL2 
+	   PPP2R2B, PRF1, GPRIN3, KLRD1, CMC1, RAP1GAP2, A2M, CTSW, GZMH, GNG2 
+Negative:  GNG11, PF4, CAVIN2, TUBB1, GP1BB, NRGN, PPBP, GP9, H2AC6, ACRBP 
+	   RGS18, PRKAR2B, ITGB3, SPARC, NCOA4, F13A1, CMTM5, CLU, PF4V1, TMEM40 
+	   PTCRA, GPX1, CAPN1-AS1, TREML1, PDGFA-DT, TUBA4A, ENSG00000236304, MPIG6B, C2orf88, CTTN 
+PC_ 4 
+Positive:  LEF1, PLCL1, ENSG00000290067, LEF1-AS1, INPP4B, TSHZ2, FHIT, NELL2, CSGALNACT1, FAAH2 
+	   PDE3B, BACH2, SLC16A10, ANK3, SESN3, ENSG00000249806, RASGRF2, AK5, ENSG00000271774, BCL2 
+	   THEMIS, LNCRNA-IUR, PRKN, DUSP16, ENSG00000229151, CD44, NRCAM, PELI1, FCGR3B, AQP9 
+Negative:  NKG7, CCL5, CST7, GZMA, GZMB, GZMH, HOPX, PRF1, KLRF1, GNLY 
+	   KLRD1, C1orf21, FGFBP2, CTSW, PDGFD, C12orf75, SPON2, SLA2, CEP78, LINC02384 
+	   MYBL1, PRSS23, IL2RB, CLIC3, PPP2R2B, CD160, NCAM1, SAMD3, CCL4, TRDC 
+PC_ 5 
+Positive:  LEF1, VIM, LDLRAD4, INPP4B, ANKH, SNX9, TIAM1, GPRIN3, MIR181A1HG, PLCL1 
+	   CPVL, PID1, GPR183, CD44, MAP4K3, NRIP1, AHR, FHIT, ENSG00000290067, LGALS2 
+	   TUBB6, CRIP1, NELL2, ANK3, EPB41L3, CCDC88A, ANXA5, RGCC, CTSB, CD86 
+Negative:  FCGR3B, ENSG00000288700, CXCR2, ENSG00000188897, KCNJ15, PROK2, CMTM2, CXCL8, AQP9, SLC45A4 
+	   HCAR3, ENSG00000286076, IFITM2, IL1R2, HCAR2, S100P, PTGS2, CSF3R, FBXL18, TREM1 
+	   SLC25A37, NAMPT, ENSG00000289341, MME, LUCAT1, FOSB, MIR23AHG, LIMK2, PHACTR1, ALPL 
+Computing nearest neighbor graph
+Computing SNN
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 3630
+Number of edges: 129645
+
+Running Louvain algorithm...
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Maximum modularity in 10 random starts: 0.9314
+Number of communities: 16
+Elapsed time: 0 seconds
+Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+This message will be shown once per session
+15:22:10 UMAP embedding parameters a = 0.9922 b = 1.112
+15:22:10 Read 3630 rows and found 20 numeric columns
+15:22:10 Using Annoy for neighbor search, n_neighbors = 30
+15:22:10 Building Annoy index with metric = cosine, n_trees = 50
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+15:22:10 Writing NN index file to temp file /tmp/SLURM_2393972/RtmpVypfXL/file27b4fc2019a740
+15:22:10 Searching Annoy index using 1 thread, search_k = 3000
+15:22:11 Annoy recall = 100%
+15:22:11 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+15:22:12 Initializing from normalized Laplacian + noise (using RSpectra)
+15:22:12 Commencing optimization for 500 epochs, with 146524 positive edges
+15:22:12 Using rng type: pcg
+Using method 'umap'
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+15:22:15 Optimization finished
+[R] Computing cluster annotations...
+As of Seurat v5, we recommend using AggregateExpression to perform pseudo-bulk analysis.
+This message is displayed once per session.
+First group.by variable `ident` starts with a number, appending `g` to ensure valid variable names
+This message is displayed once every 8 hours.
+[R] Error in cluster annotation: missing value where TRUE/FALSE needed 
+[R] Using cluster numbers as labels
+[R] Cluster labels: Cluster_1 Cluster_0 Cluster_5 Cluster_2 Cluster_9 Cluster_6 Cluster_3 Cluster_10 Cluster_11 Cluster_8 Cluster_7 Cluster_4 Cluster_12 Cluster_14 Cluster_13 Cluster_15 
+[R] Seurat analysis complete
+[seurat] Done
+seurat	seconds=36	peak_ram_mb=unknown
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.000s
+Warning: time command not available, running without memory tracking
+
+
+processing file: report.Rmd
+1/19                  
+2/19 [setup]          
+Failed to query server: Transport endpoint is not connected
+3/19                  
+4/19 [unnamed-chunk-1]
+5/19                  
+6/19 [unnamed-chunk-2]
+7/19                  
+8/19 [unnamed-chunk-3]
+9/19                  
+10/19 [unnamed-chunk-4]
+11/19                  
+12/19 [unnamed-chunk-5]
+13/19                  
+14/19 [unnamed-chunk-6]
+15/19                  
+16/19 [unnamed-chunk-7]
+17/19                  
+18/19 [unnamed-chunk-8]
+19/19                  
+output file: report.knit.md
+
+/home1/bambat/.conda/envs/scrna-mini/bin/pandoc +RTS -K512m -RTS report.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/report/report.html --lua-filter /home1/bambat/.conda/envs/scrna-mini/lib/R/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /home1/bambat/.conda/envs/scrna-mini/lib/R/library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --table-of-contents --toc-depth 2 --template /home1/bambat/.conda/envs/scrna-mini/lib/R/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/SLURM_2393972/RtmpaNRk2Z/rmarkdown-str27b5584a61c503.html 
+
+Output created: report/report.html
+There were 15 warnings (use warnings() to see them)
+[report] Wrote /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/report/report.html
+report	seconds=7	peak_ram_mb=unknown
+
+real	0m0.001s
+user	0m0.000s
+sys	0m0.000s
+Warning: time command not available, running without memory tracking
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+IndexError: list index out of range
+/project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/scripts/run_flair.sh: line 17: /project2/weisenbe_1344/test-data/scRNA-Seq-Mini-Analysis/config/config.yaml: Permission denied
+[run_all] Done. See report/report.html and results/
+
+Analysis Complete!
+
+Results available in:
+   - results/cellranger/ - CellRanger output
+   - results/seurat/ - Seurat analysis results
+   - report/report.html - Comprehensive HTML report
+
+View results:
+   open report/report.html
+
+Dataset Information:
+   - Source: https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard
+   - Cells: ~3,663 PBMCs
+   - Chemistry: 3' v3.1
+   - Sequencing: Illumina NovaSeq 6000

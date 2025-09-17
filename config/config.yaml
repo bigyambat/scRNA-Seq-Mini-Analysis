@@ -6,7 +6,7 @@ datasets:
       - https://cf.10xgenomics.com/samples/cell-exp/6.1.0/3p_Heparin_SepMate/3p_Heparin_SepMate_fastqs.tar
     # Option 2: Use local FASTQ files (uncomment and set path)
     # local_fastq_dir: "/path/to/your/fastqs"
-    downsample_fraction: 1.0  # Downsample to keep FASTQs ≤2GB (use 0.2 for tiny dataset)
+    downsample_fraction: 1.0  # Downsample to keep FASTQs small (use 0.2 for tiny dataset)
     sample_name: 3p_Heparin_SepMate
     # Dataset: PBMCs from Heparin-Treated Blood Collection Tubes Isolated via SepMate-Ficoll Gradient
     # Source: https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard
@@ -37,14 +37,14 @@ cellranger:
   create_bam: false
   # HPC settings
   hpc:
-    enabled: false  # Set to true when running on HPC
-    module_name: "cellranger/9.0.1"  # Module to load on HPC
+    enabled: true  # Set to true when running on HPC
+    module_name: cellranger/9.0.1  # Module to load on HPC
     job_memory: "32G"
     job_cpus: 6
     job_time: "4:00:00"
   # Local installation settings
   local:
-    enabled: true  # Set to true when using local installation
+    enabled: false  # Set to true when using local installation
     path: ""  # Leave empty to use system PATH, or specify full path to cellranger
 
 # Output directory settings
