@@ -7,7 +7,7 @@ datasets:
     # Option 2: Use local FASTQ files (uncomment and set path)
     # local_fastq_dir: "/path/to/your/fastqs"
     downsample_fraction: 1.0  # Downsample to keep FASTQs ≤2GB (use 0.2 for tiny dataset)
-    sample_name: pbmc_heparin_sepmate
+    sample_name: 3p_Heparin_SepMate
     # Dataset: PBMCs from Heparin-Treated Blood Collection Tubes Isolated via SepMate-Ficoll Gradient
     # Source: https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard
     # Cells detected: 3,663
