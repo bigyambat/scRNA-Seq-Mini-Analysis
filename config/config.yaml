@@ -26,8 +26,8 @@ datasets:
 references:
   transcriptome:
     species: human
-    tenx_ref: GRCh38-2020-A  # specify local path if already installed
-    url: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+    tenx_ref: GRCh38-2024-A  # specify local path if already installed
+    url: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz
 
 cellranger:
   version: "7.2.0"
@@ -44,7 +44,7 @@ cellranger:
   # Local installation settings
   local:
     enabled: true  # Set to true when using local installation
-    path: ""  # Leave empty to use system PATH, or specify full path to cellranger
+    path: "/project2/weisenbe_1344/test-data/resources/refdata-gex-GRCh38-2024-A"  # Leave empty to use system PATH, or specify full path to cellranger
 
 # Output directory settings
 output_dirs:
