@@ -26,6 +26,16 @@ sample=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "datasets.tenx.sa
 chem=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.chemistry")
 cores=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.localcores")
 mem=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.localmem")
+# CellRanger 9.0.1 requires explicit --create-bam flag
+create_bam_raw=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.create_bam" 2>/dev/null || echo "False")
+if [[ "$create_bam_raw" == "True" || "$create_bam_raw" == "true" ]]; then
+    create_bam="true"
+elif [[ "$create_bam_raw" == "False" || "$create_bam_raw" == "false" ]]; then
+    create_bam="false"
+else
+    # default
+    create_bam="false"
+fi
 
 FASTQ_DIR="$DATA_DIR/fastqs_ds"
 [[ -d "$FASTQ_DIR" ]] || FASTQ_DIR="$DATA_DIR/fastqs"
@@ -41,9 +51,11 @@ echo "  Cores: $cores"
 echo "  Memory: $mem GB"
 echo "  Reference: $REF_DIR"
 echo "  FASTQ directory: $FASTQ_DIR"
+echo "  Create BAM: $create_bam"
 
 cellranger count \
   --id="${sample}" \
+  --create-bam "$create_bam" \
   --transcriptome="$REF_DIR" \
   --fastqs="$FASTQ_DIR" \
   --sample="$sample" \

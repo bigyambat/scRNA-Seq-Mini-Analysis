@@ -34,6 +34,7 @@ cellranger:
   chemistry: auto
   localcores: 6
   localmem: 32
+  create_bam: false
   # HPC settings
   hpc:
     enabled: false  # Set to true when running on HPC
