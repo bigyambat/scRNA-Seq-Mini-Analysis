@@ -32,13 +32,13 @@ OPTIONS:
 
 EXAMPLES:
     # Test with custom CellRanger path
-    $0 --cellranger /path/to/cellranger-7.2.0/bin/cellranger
+    $0 --cellranger /path/to/cellranger-9.0.1/bin/cellranger
 
     # Test with custom reference path
-    $0 --reference /path/to/refdata-gex-GRCh38-2020-A
+    $0 --reference /path/to/refdata-gex-GRCh38-2024-A
 
     # Test with both custom paths
-    $0 --cellranger /path/to/cellranger-7.2.0/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2020-A
+    $0 --cellranger /path/to/cellranger-9.0.1/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2024-A
 
     # Test in HPC mode
     $0 --hpc
@@ -111,22 +111,22 @@ run_or_show() {
     fi
 }
 
-echo "🧬 Advanced Pipeline Testing"
-echo "=============================="
+echo "Advanced Pipeline Testing"
+echo "=========================="
 
 # Test 1: Configuration Parser
 echo ""
-echo "1️⃣ Testing Configuration Parser"
+echo "1. Testing Configuration Parser"
 run_or_show "python3 scripts/parse_config.py config/config.yaml cellranger.version" "Testing config parser"
 
 # Test 2: Environment Detection
 echo ""
-echo "2️⃣ Testing Environment Detection"
+echo "2. Testing Environment Detection"
 run_or_show "./scripts/switch_environment.sh" "Testing environment detection"
 
 # Test 3: CellRanger Setup
 echo ""
-echo "3️⃣ Testing CellRanger Setup"
+echo "3. Testing CellRanger Setup"
 
 # Set environment if specified
 if [[ -n "$ENVIRONMENT" ]]; then
@@ -136,24 +136,24 @@ fi
 # Update config with custom paths if provided
 if [[ -n "$CELLRANGER_PATH" || -n "$REFERENCE_PATH" ]]; then
     echo ""
-    echo "🔧 Updating configuration with custom paths..."
+    echo "Updating configuration with custom paths..."
     
     if [[ -n "$CELLRANGER_PATH" ]]; then
         if [[ -x "$CELLRANGER_PATH" ]]; then
             run_or_show "sed -i.bak 's|path: \"\"|path: \"$CELLRANGER_PATH\"|' config/config.yaml" "Setting CellRanger path"
             log "INFO" "CellRanger path set to: $CELLRANGER_PATH"
         else
-            echo "❌ Error: CellRanger binary not found or not executable: $CELLRANGER_PATH"
+            echo "ERROR: CellRanger binary not found or not executable: $CELLRANGER_PATH"
             exit 1
         fi
     fi
     
     if [[ -n "$REFERENCE_PATH" ]]; then
         if [[ -d "$REFERENCE_PATH" ]]; then
-            run_or_show "sed -i.bak 's|tenx_ref: GRCh38-2020-A|tenx_ref: $REFERENCE_PATH|' config/config.yaml" "Setting reference path"
+            run_or_show "sed -i.bak 's|tenx_ref: GRCh38-2024-A|tenx_ref: $REFERENCE_PATH|' config/config.yaml" "Setting reference path"
             log "INFO" "Reference path set to: $REFERENCE_PATH"
         else
-            echo "❌ Error: Reference directory not found: $REFERENCE_PATH"
+            echo "ERROR: Reference directory not found: $REFERENCE_PATH"
             exit 1
         fi
     fi
@@ -164,12 +164,12 @@ run_or_show "./scripts/setup_cellranger.sh" "Testing CellRanger setup"
 
 # Test 4: Data Download (dry run)
 echo ""
-echo "4️⃣ Testing Data Download Configuration"
+echo "4. Testing Data Download Configuration"
 run_or_show "./scripts/download_data.sh" "Testing data download (will not download if data exists)"
 
 # Test 5: CellRanger Run (dry run)
 echo ""
-echo "5️⃣ Testing CellRanger Run Configuration"
+echo "5. Testing CellRanger Run Configuration"
 if [[ "$DRY_RUN" == "true" ]]; then
     echo "[DRY-RUN] Would run: ./scripts/run_cellranger.sh"
     echo "[DRY-RUN] This would execute CellRanger count with current configuration"
@@ -185,7 +185,7 @@ fi
 
 # Test 6: Configuration Validation
 echo ""
-echo "6️⃣ Testing Configuration Validation"
+echo "6. Testing Configuration Validation"
 
 # Validate key configuration values
 run_or_show "python3 scripts/parse_config.py config/config.yaml datasets.tenx.sample_name" "Validating sample name"
@@ -194,42 +194,42 @@ run_or_show "python3 scripts/parse_config.py config/config.yaml qc.min_features"
 
 # Test 7: Output Directory Structure
 echo ""
-echo "7️⃣ Testing Output Directory Structure"
+echo "7. Testing Output Directory Structure"
 run_or_show "mkdir -p data/tenx results/cellranger results/seurat report refs" "Creating output directories"
 
 # Summary
 echo ""
-echo "✅ Testing Complete!"
+echo "Testing Complete!"
 echo ""
-echo "📊 Test Summary:"
-echo "   • Configuration parser: ✓"
-echo "   • Environment detection: ✓"
-echo "   • CellRanger setup: ✓"
-echo "   • Data download config: ✓"
-echo "   • CellRanger run config: ✓"
-echo "   • Configuration validation: ✓"
-echo "   • Output directories: ✓"
+echo "Test Summary:"
+echo "   - Configuration parser: PASS"
+echo "   - Environment detection: PASS"
+echo "   - CellRanger setup: PASS"
+echo "   - Data download config: PASS"
+echo "   - CellRanger run config: PASS"
+echo "   - Configuration validation: PASS"
+echo "   - Output directories: PASS"
 echo ""
 
 if [[ "$DRY_RUN" == "true" ]]; then
-    echo "🔍 Dry run completed. Use without --dry-run to execute tests."
+    echo "Dry run completed. Use without --dry-run to execute tests."
 else
-    echo "🚀 Pipeline is ready! Run './run_analysis.sh' to start the full analysis."
+    echo "Pipeline is ready! Run './run_analysis.sh' to start the full analysis."
 fi
 
 echo ""
-echo "📁 Configuration:"
+echo "Configuration:"
 if [[ -n "$CELLRANGER_PATH" ]]; then
-    echo "   • CellRanger: $CELLRANGER_PATH"
+    echo "   - CellRanger: $CELLRANGER_PATH"
 else
-    echo "   • CellRanger: $(which cellranger 2>/dev/null || echo 'Not found in PATH')"
+    echo "   - CellRanger: $(which cellranger 2>/dev/null || echo 'Not found in PATH')"
 fi
 
 if [[ -n "$REFERENCE_PATH" ]]; then
-    echo "   • Reference: $REFERENCE_PATH"
+    echo "   - Reference: $REFERENCE_PATH"
 else
-    echo "   • Reference: $(python3 scripts/parse_config.py config/config.yaml references.transcriptome.tenx_ref 2>/dev/null || echo 'Default')"
+    echo "   - Reference: $(python3 scripts/parse_config.py config/config.yaml references.transcriptome.tenx_ref 2>/dev/null || echo 'Default')"
 fi
 
-echo "   • Environment: $(python3 scripts/parse_config.py config/config.yaml cellranger.hpc.enabled 2>/dev/null | grep -q True && echo 'HPC' || echo 'Local')"
-echo "   • Sample: $(python3 scripts/parse_config.py config/config.yaml datasets.tenx.sample_name 2>/dev/null || echo 'Unknown')"
+echo "   - Environment: $(python3 scripts/parse_config.py config/config.yaml cellranger.hpc.enabled 2>/dev/null | grep -q True && echo 'HPC' || echo 'Local')"
+echo "   - Sample: $(python3 scripts/parse_config.py config/config.yaml datasets.tenx.sample_name 2>/dev/null || echo 'Unknown')"

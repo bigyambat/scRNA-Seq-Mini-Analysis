@@ -69,7 +69,7 @@ chmod +x "$JOB_SCRIPT"
 echo "Submitting job..."
 if command -v sbatch >/dev/null 2>&1; then
     JOB_ID=$(sbatch "$JOB_SCRIPT" | awk '{print $4}')
-    echo "✓ Job submitted successfully!"
+    echo "Job submitted successfully!"
     echo "  Job ID: $JOB_ID"
     echo "  Job script: $JOB_SCRIPT"
     echo ""
@@ -81,13 +81,13 @@ if command -v sbatch >/dev/null 2>&1; then
     echo "  tail -f $ROOT_DIR/logs/${JOB_NAME}_${JOB_ID}.err"
 elif command -v qsub >/dev/null 2>&1; then
     JOB_ID=$(qsub "$JOB_SCRIPT")
-    echo "✓ Job submitted successfully!"
+    echo "Job submitted successfully!"
     echo "  Job ID: $JOB_ID"
     echo "  Job script: $JOB_SCRIPT"
     echo ""
     echo "To check job status:"
     echo "  qstat $JOB_ID"
 else
-    echo "✗ No job scheduler found (sbatch or qsub)"
+    echo "ERROR: No job scheduler found (sbatch or qsub)"
     echo "Please run the job script manually: $JOB_SCRIPT"
 fi

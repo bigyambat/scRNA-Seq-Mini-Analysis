@@ -10,7 +10,13 @@ This repo provides a fast, end-to-end, reproducible pipeline using Cell Ranger, 
 ./run_analysis.sh
 ```
 
-This will analyze the [10X Genomics PBMC dataset](https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard) (~3,663 cells) and generate a comprehensive HTML report.
+This will analyze the [10X Genomics PBMC dataset](https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard) (~3,663 cells) using CellRanger 9.0.1 and generate a comprehensive HTML report.
+
+**Output Directory Structure:**
+- `data/` - Raw data storage (FASTQ files, references)
+- `results/` - Analysis results (CellRanger output, Seurat analysis)
+- `report/` - HTML reports and visualizations
+- `refs/` - Reference genomes and annotations
 
 ### 🧪 Test the Pipeline
 
@@ -22,13 +28,13 @@ This will analyze the [10X Genomics PBMC dataset](https://www.10xgenomics.com/da
 **Advanced test with custom paths:**
 ```bash
 # Test with custom CellRanger binary
-./scripts/test_pipeline.sh --cellranger /path/to/cellranger-7.2.0/bin/cellranger
+./scripts/test_pipeline.sh --cellranger /path/to/cellranger-9.0.1/bin/cellranger
 
 # Test with custom reference directory
-./scripts/test_pipeline.sh --reference /path/to/refdata-gex-GRCh38-2020-A
+./scripts/test_pipeline.sh --reference /path/to/refdata-gex-GRCh38-2024-A
 
 # Test both custom paths
-./scripts/test_pipeline.sh --cellranger /path/to/cellranger-7.2.0/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2020-A
+./scripts/test_pipeline.sh --cellranger /path/to/cellranger-9.0.1/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2024-A
 
 # Dry run to see what would be tested
 ./scripts/test_pipeline.sh --dry-run --verbose

@@ -15,7 +15,7 @@ source "$ROOT_DIR/scripts/setup_cellranger.sh"
 
 # Check if CellRanger is available
 if ! command -v cellranger >/dev/null 2>&1; then
-    echo "✗ CellRanger not available after setup"
+    echo "ERROR: CellRanger not available after setup"
     echo "Please run: $ROOT_DIR/scripts/setup_cellranger.sh"
     exit 1
 fi

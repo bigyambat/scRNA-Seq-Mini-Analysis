@@ -26,8 +26,8 @@ case "$ENVIRONMENT" in
         # Update config to enable HPC mode
         sed -i.bak 's/enabled: false  # Set to true when running on HPC/enabled: true  # Set to true when running on HPC/' "$CONFIG"
         sed -i.bak 's/enabled: true  # Set to true when using local installation/enabled: false  # Set to true when using local installation/' "$CONFIG"
-        echo "✓ HPC mode enabled"
-        echo "✓ Local mode disabled"
+        echo "HPC mode enabled"
+        echo "Local mode disabled"
         echo ""
         echo "HPC configuration:"
         MODULE_NAME=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.hpc.module_name")
@@ -46,8 +46,8 @@ case "$ENVIRONMENT" in
         # Update config to enable local mode
         sed -i.bak 's/enabled: true  # Set to true when running on HPC/enabled: false  # Set to true when running on HPC/' "$CONFIG"
         sed -i.bak 's/enabled: false  # Set to true when using local installation/enabled: true  # Set to true when using local installation/' "$CONFIG"
-        echo "✓ Local mode enabled"
-        echo "✓ HPC mode disabled"
+        echo "Local mode enabled"
+        echo "HPC mode disabled"
         echo ""
         echo "Local configuration:"
         LOCAL_PATH=$(python3 "$ROOT_DIR/scripts/parse_config.py" "$CONFIG" "cellranger.local.path")

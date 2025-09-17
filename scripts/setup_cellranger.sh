@@ -42,19 +42,19 @@ if [[ "$IS_HPC" == "true" && "$HPC_ENABLED" == "True" ]]; then
     echo "Loading module: $MODULE_NAME"
     
     if module load "$MODULE_NAME" 2>/dev/null; then
-        echo "✓ Module $MODULE_NAME loaded successfully"
+        echo "Module $MODULE_NAME loaded successfully"
     else
-        echo "✗ Failed to load module $MODULE_NAME"
+        echo "ERROR: Failed to load module $MODULE_NAME"
         echo "Please check if the module is available: module avail cellranger"
         exit 1
     fi
     
     # Verify CellRanger is available
     if command -v cellranger >/dev/null 2>&1; then
-        echo "✓ CellRanger is available: $(which cellranger)"
+        echo "CellRanger is available: $(which cellranger)"
         cellranger --version
     else
-        echo "✗ CellRanger not found after loading module"
+        echo "ERROR: CellRanger not found after loading module"
         exit 1
     fi
     
@@ -63,15 +63,15 @@ elif [[ "$LOCAL_ENABLED" == "True" ]]; then
     
     # Check if CellRanger is in PATH
     if command -v cellranger >/dev/null 2>&1; then
-        echo "✓ CellRanger found in PATH: $(which cellranger)"
+        echo "CellRanger found in PATH: $(which cellranger)"
         cellranger --version
     elif [[ -n "$LOCAL_PATH" && -x "$LOCAL_PATH" ]]; then
-        echo "✓ CellRanger found at specified path: $LOCAL_PATH"
+        echo "CellRanger found at specified path: $LOCAL_PATH"
         "$LOCAL_PATH" --version
         # Add to PATH for this session
         export PATH="$(dirname "$LOCAL_PATH"):$PATH"
     else
-        echo "✗ CellRanger not found"
+        echo "ERROR: CellRanger not found"
         echo "Please either:"
         echo "1. Install CellRanger and add it to your PATH, or"
         echo "2. Set the full path in config.yaml under cellranger.local.path"
@@ -84,7 +84,7 @@ elif [[ "$LOCAL_ENABLED" == "True" ]]; then
     fi
     
 else
-    echo "✗ Neither HPC nor local mode is enabled"
+    echo "ERROR: Neither HPC nor local mode is enabled"
     echo "Please enable either cellranger.hpc.enabled or cellranger.local.enabled in config.yaml"
     exit 1
 fi

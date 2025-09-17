@@ -30,21 +30,21 @@ references:
     url: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz
 
 cellranger:
-  version: "7.2.0"
+  version: "9.0.1"
   chemistry: auto
   localcores: 6
   localmem: 32
   # HPC settings
   hpc:
     enabled: false  # Set to true when running on HPC
-    module_name: "cellranger/7.2.0"  # Module to load on HPC
+    module_name: "cellranger/9.0.1"  # Module to load on HPC
     job_memory: "32G"
     job_cpus: 6
     job_time: "4:00:00"
   # Local installation settings
   local:
     enabled: true  # Set to true when using local installation
-    path: "/project2/weisenbe_1344/test-data/resources/refdata-gex-GRCh38-2024-A"  # Leave empty to use system PATH, or specify full path to cellranger
+    path: ""  # Leave empty to use system PATH, or specify full path to cellranger
 
 # Output directory settings
 output_dirs:

@@ -181,13 +181,13 @@ For more comprehensive testing with custom CellRanger and reference paths:
 
 ```bash
 # Test with custom CellRanger binary path
-./scripts/test_pipeline.sh --cellranger /path/to/cellranger-7.2.0/bin/cellranger
+./scripts/test_pipeline.sh --cellranger /path/to/cellranger-9.0.1/bin/cellranger
 
 # Test with custom reference directory
-./scripts/test_pipeline.sh --reference /path/to/refdata-gex-GRCh38-2020-A
+./scripts/test_pipeline.sh --reference /path/to/refdata-gex-GRCh38-2024-A
 
 # Test with both custom paths
-./scripts/test_pipeline.sh --cellranger /path/to/cellranger-7.2.0/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2020-A
+./scripts/test_pipeline.sh --cellranger /path/to/cellranger-9.0.1/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2024-A
 
 # Test in specific environment
 ./scripts/test_pipeline.sh --hpc
