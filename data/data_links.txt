@@ -1,5 +1,12 @@
-10x tiny PBMC (example): https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_v3/pbmc_1k_v3_fastqs.tar
+# Primary Dataset: PBMCs from Heparin-Treated Blood Collection Tubes
+# Source: https://www.10xgenomics.com/datasets/pbmcs-3p_heparin_sepmate-3-1-standard
+# Cells: 3,663 PBMCs | Median genes/cell: 1,886 | Median UMIs/cell: 6,685
+10x PBMC dataset: https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_10k_v3/pbmc_10k_v3_fastqs.tar
+
+# Reference genome
 10x GRCh38 reference: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+
+# Optional isoform dataset
 Isoform tiny dataset (replace with Smart-seq2/long-reads URL ≤2 GB): https://example.org/smartseq2_tiny.fastq.gz
 
 

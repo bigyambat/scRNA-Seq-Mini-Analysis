@@ -174,3 +174,37 @@ echo "=== Testing CellRanger Setup ===" && \
 ./scripts/setup_cellranger.sh && \
 echo "=== All Tests Complete ==="
 ```
+
+## Advanced Testing with Custom Paths
+
+For more comprehensive testing with custom CellRanger and reference paths:
+
+```bash
+# Test with custom CellRanger binary path
+./scripts/test_pipeline.sh --cellranger /path/to/cellranger-7.2.0/bin/cellranger
+
+# Test with custom reference directory
+./scripts/test_pipeline.sh --reference /path/to/refdata-gex-GRCh38-2020-A
+
+# Test with both custom paths
+./scripts/test_pipeline.sh --cellranger /path/to/cellranger-7.2.0/bin/cellranger --reference /path/to/refdata-gex-GRCh38-2020-A
+
+# Test in specific environment
+./scripts/test_pipeline.sh --hpc
+./scripts/test_pipeline.sh --local
+
+# Dry run to see what would be tested
+./scripts/test_pipeline.sh --dry-run --verbose
+
+# Show help
+./scripts/test_pipeline.sh --help
+```
+
+### Advanced Test Features
+
+- **Custom CellRanger Path**: Test with specific CellRanger binary location
+- **Custom Reference Path**: Test with specific reference directory
+- **Environment Testing**: Test in HPC or local mode
+- **Dry Run Mode**: See what would be tested without executing
+- **Verbose Output**: Detailed logging of all operations
+- **Configuration Validation**: Comprehensive config checking
